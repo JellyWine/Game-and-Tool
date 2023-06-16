@@ -1,0 +1,91 @@
+#include <cstdlib> //rand()
+#include <ctime> //time()
+#include<iostream>
+
+using namespace std;
+
+int main()
+{
+
+    string choice="no";
+    cout << "這是猜數字遊戲，範圍為1~1000(整數)。" << endl;
+    cout << "但其中有兩個特別的數字，是這題的特別數字" << endl;
+    cout << "請用你的聰明智慧將其找出，" << endl;
+    cout << "否則就得猜到隨機生成的數字才能找出它們。" << endl;
+    cout<<"是否開始遊戲? (Yes/No)"<<endl;
+    cin>>choice;
+    while (choice == "Yes" || choice == "yes" || choice == "YES")
+    {
+        cout << "讓我們開始吧！請輸入數字，然後按下enter" << endl;
+        srand(time(NULL));
+        int a,min=0,max=1000,tmin=0,tmax=1000;
+        int n = rand() % 1001; //0~1000
+        while(cin >> a)
+        {
+            if(a==404||a==666)
+            {
+                if(a==666)
+                {
+                    cout<<"正確答案答案是："<<n<<endl;
+                    cout << "恭喜你找到了666這個特別數字，" << endl;
+                    cout << "這件事讓程式碼以你為傲！" << endl;
+                    cout << "讓另一個特別數字404為你歡呼吧！" << endl;
+                    for(int t=0;t<666;t++)
+                    {
+                        cout<<"404 ";
+                    }
+                    return 0;
+                }
+                else
+                {
+                    cout<<"正確答案答案是："<<n<<endl;
+                    cout << "恭喜你找到了404這個特別數字，" << endl;
+                    cout << "這件事讓程式碼以你為傲！" << endl;
+                    cout << "請輸入另一個特別數字666讓它為你歡呼吧！" << endl;
+                    for(int t=0;t<404;t++)
+                    {
+                        cout << "666 ";
+                    }
+                    return 0;
+                }
+            }
+            else
+            {
+                if(a != n)
+                {
+                    if(a > n)
+                    {
+                        max=a;
+                        if(max<tmax)
+                        {
+                            tmax=max;
+                        }
+                        cout << "再小一點！(" << tmin << "~" << tmax << ")" << endl;
+                    }
+                    else
+                    {
+                        min=a;
+                        if(min>tmin)
+                        {
+                            tmin=min;
+                        }
+                        cout << "再大一點！(" << tmin << "~" << tmax << ")" << endl;
+                    } 
+                }
+                else
+                {
+                    cout << "恭喜你找到了隨機生成的正確答案，" << endl;
+                    cout << "這件事讓程式碼以你為傲！" << endl;
+                    cout << "是時候讓特別數字現身了，" << endl;
+                    cout << "它們分別是404和666。" << endl;
+                    cout << "讓我們狂歡吧！" << endl;
+                    for(int t=0;t<n;t++)
+                    {
+                        cout << "Error ";
+                    }
+                    return 0;
+                }
+            }
+       }
+    }
+}
