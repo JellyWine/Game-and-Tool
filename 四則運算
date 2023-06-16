@@ -1,0 +1,332 @@
+#include <iostream>
+#include <string>
+using namespace std;
+string k[10];
+string now,b,a;
+int t,c,bl,al,index;
+int have=0;
+int numc,numb,numa;
+string divide="/";
+string multiply ="*";
+string subtract="-";
+string add="+";
+int sub;
+string ans;
+int iaddsub;
+string division(string s1)
+{
+   al=0;bl=0;
+   have=0;
+   for(t=0;t<10;t++)
+   {
+       k[t]=to_string(t);
+   }
+   index = s1.find(divide,0);
+   for(t=index-1;t>=0;t--)
+    {
+      iaddsub=0;
+      now=s1.substr(t,1) ;
+      have=0;
+      for(c=0;c<10;c++)
+      {
+          if(k[c]==now)
+          {
+              have=1;
+              break;
+          }
+          else if(now==subtract&&iaddsub!=1)
+          {
+            if(t==0||s1.substr(t-1,1)=="*"||s1.substr(t-1,1)=="/"||s1.substr(t-1,1)=="+"||s1.substr(t-1,1)=="-")
+            {
+             iaddsub=1;
+             have=1;
+             break;
+            }
+          }
+      }
+      if(have==0)
+      {
+          bl=t+1;
+          break;
+      }
+    }
+   b=s1.substr(bl,index-bl);
+   iaddsub=0;
+   for(t=index+1;t<=s1.length();t++)
+    {
+      now=s1.substr(t,1) ;
+      have=0;
+      for(c=0;c<10;c++)
+      {
+          if(k[c]==now)
+          {
+              have=1;
+              break;
+          }
+          else if(now==subtract&&iaddsub!=1&&s1.find(subtract,index+1)==index+1)
+          {
+             iaddsub=1;
+             have=1;
+             break; 
+          }
+      }
+      if(have==0)
+      {
+          al=t-1;
+          break;
+      }
+    }
+   a=s1.substr(index+1,al-index);
+   cout<<"a="<<a<<endl;
+   numb=stoi(b);
+   numa=stoi(a);
+   numc=numb/numa;
+   ans=to_string(numc);
+   return ans;
+}
+string multiplication(string s1)
+{ 
+   cout<<"s1="<<s1<<endl;
+   bl=0;al=0;
+   iaddsub=0;
+   have=0;
+   for(t=0;t<10;t++)
+   {
+       k[t]=to_string(t);
+   }
+   index = s1.find(multiply,0);
+   for(t=index-1;t>=0;t--)
+    {
+      now=s1.substr(t,1) ;
+      have=0;
+      for(c=0;c<10;c++)
+      {
+          if(k[c]==now)
+          {
+              have=1;
+              break;
+          }
+          else if(now==subtract&&iaddsub!=1)
+          {
+             if(t==0||s1.substr(t-1,1)=="*"||s1.substr(t-1,1)=="/"||s1.substr(t-1,1)=="+"||s1.substr(t-1,1)=="-")
+            {
+             iaddsub=1;
+             have=1;
+             break;
+            }
+          }
+      }
+      if(have==0)
+      {
+          bl=t+1;
+          break;
+      }
+    }
+   b=s1.substr(bl,index-bl);
+   iaddsub=0;
+   for(t=index+1;t<=s1.length();t++)
+    {
+      now=s1.substr(t,1) ;
+      have=0;
+      for(c=0;c<10;c++)
+      {
+          if(k[c]==now)
+          {
+              have=1;
+              break;
+          }
+          else if(now==subtract&&iaddsub!=1&&s1.find(subtract,index+1)==index+1)
+          {
+             iaddsub=1;
+             have=1;
+             break; 
+          }
+      }
+      if(have==0)
+      {
+          al=t-1;
+          break;
+      }
+    }
+   a=s1.substr(index+1,al-index);
+   cout<<"a="<<a<<endl;
+   cout<<"al="<<al<<endl;
+   cout<<"b="<<b<<endl;
+   cout<<"bl="<<bl<<endl;
+   numb=stoi(b);
+   numa=stoi(a);
+   numc=numb*numa;
+   ans=to_string(numc);
+   return ans;
+}
+string addsub(string s1)
+{
+ 
+ while(s1.find(add,0)<s1.length()||s1.find(subtract,s1.find(subtract,0)+1)<s1.length()||(s1.find(subtract,0)<s1.length()&&s1.find(subtract,0)!=0))
+ {
+   sub=0;
+   bl=0;
+   al=0;
+   cout<<"有"<<endl;
+   cout<<s1<<endl;
+   have=0;
+   iaddsub=0;
+   if(s1.find(add,0)<s1.find(subtract,0)||(s1.find(add,0)<s1.length()&&s1.find(subtract,0)==0))
+   {
+       index=s1.find(add,0);
+   }
+   else if(s1.find(subtract,s1.find(subtract,0)+1)<s1.length())
+   {
+      index=s1.find(subtract,s1.find(subtract,0)+1); 
+      sub=1;
+   }
+   else 
+   {
+       index=s1.find(subtract,0);
+   }
+   cout<<index<<endl;
+   for(t=0;t<10;t++)
+   {
+       k[t]=to_string(t);
+   }
+   for(t=index-1;t<=s1.length();t--)
+    {
+      now=s1.substr(t,1) ;
+      have=0;
+      for(c=0;c<10;c++)
+      {
+          if(k[c]==now)
+          {
+              have=1;
+              break;
+          }
+          else if(now==subtract&&iaddsub!=1)
+          {
+             iaddsub=1;
+             have=1;
+             break; 
+          }
+      }
+      if(have==0)
+      {
+          bl=t+1;
+          break;
+      }
+    }
+    cout<<bl<<endl;
+   b=s1.substr(bl,index-bl);
+   iaddsub=0;
+   for(t=index+1;t<=s1.length();t++)
+    {
+      now=s1.substr(t,1);
+      have=0;
+      for(c=0;c<10;c++)
+      {
+          if(k[c]==now)
+          {
+              have=1;
+              break;
+          }
+          else if(now==subtract&&iaddsub!=1&&s1.find(subtract,index+1)==index+1)
+           {
+             index++;
+             iaddsub=1;
+             have=1;
+             break; 
+          }
+      }
+      if(have==0)
+      {
+          al=t-1;
+          break;
+      }
+    }
+   cout<<al<<endl;
+   a=s1.substr(index,al-index+1);
+   cout<<a<<endl;
+   cout<<b<<endl;
+   numb=stoi(b);
+   numa=stoi(a);
+   if(sub==1)
+   {
+       numa=-numa;
+   }
+   numc=numb+numa;
+   s1=s1.erase(bl,al-bl+1);
+   s1=s1.insert(bl,to_string(numc));
+   cout<<s1<<endl;
+ }
+ return s1;
+}
+string Arithmetic(string sa)
+{
+   string sb=sa;
+   int endari=0;
+   while(endari!=1)
+   {
+   if(sa.find(multiply,0)<sa.length()||sa.find(divide,0)<sa.length())
+   {
+    if(sa.find(multiply,0)<sa.find(divide,0)) 
+    {
+     sa=multiplication(sa);
+     sb.erase(bl,al-bl+1);
+     sb.insert(bl,sa);
+     sa=sb;
+    }
+    else
+    {
+      sa=division(sa);
+      sb.erase(bl,al-bl+1);
+      sb.insert(bl,sa);
+      sa=sb;
+    }
+   }
+   else
+   {
+       
+    endari=1;
+    sa=addsub(sa);
+    break;
+   }
+   }
+   return sa;
+}
+int main()
+{
+  string formula,formulac;
+  cin>>formula;
+  int placeleft=0;
+  int placeright;
+  int splace=0;
+  string left="(";
+  string right=")";
+  int ifind=0;
+  while(formula.find(left,0)<formula.length()&&formula.find(right,0)<=formula.length())
+  { 
+   placeleft=0;
+   placeright=0;
+   splace=0;
+   ifind=0;
+   while(ifind!=1)
+   {
+       splace=formula.find(left,splace);
+       if(splace<formula.length())
+       {
+           splace++;
+           placeleft=splace;
+       }
+       else
+       {
+           ifind=1;
+       }
+   }
+   splace=placeleft;
+   placeright=formula.find(right,splace);
+   formulac=Arithmetic(formula.substr(splace,placeright-placeleft));
+   formula.erase(splace-1,placeright-placeleft+2);
+   formula.insert(splace-1,formulac);
+  }
+  
+  formula=Arithmetic(formula);  
+  cout<<"最後答案"<<formula;
+}
