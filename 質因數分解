@@ -1,0 +1,70 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int j,c,a;
+    int t=0;
+    cin>> a;
+    int k[a+1];
+    for(j=0;j<a+1;j++)
+    {
+        k[j]=1;
+    }
+    for(j=2;j*c<=a;j++)
+    {
+        for(c=2;c<=j;c++)
+        {
+            if(c*j>a)
+            {
+                break;
+            }
+            k[c*j]=0;
+        }
+        c=2;
+    }
+    for(j=0;j<a+1;j++)
+    {
+        if(k[j]==1&&j!=0&&j!=1)
+        {
+          t=t+1 ;
+        }
+    }
+    int haha[t];
+    c=0;
+    for(j=0;j<a+1;j++)
+      {
+        if(k[j]==1&&j!=0&&j!=1)
+        {
+          haha[c]=j;
+          cout<<haha[c]<<" ";
+          c++;
+        }
+      }
+    int hbhb[t];
+    for(c=0;c<t;c++)
+    {
+        hbhb[c]=0;
+    }
+    for(c=0;c<t;c++)
+    {
+     while(a%haha[c]==0)
+        {
+         a=a/haha[c];
+         hbhb[c]++;
+        }
+        if(a==1)
+        {
+            break;
+        }
+    }
+    cout<<" "<<endl;
+    for(c=0;c<t;c++)
+    {
+        if(hbhb[c]!=0)
+        {
+            cout<<haha[c]<<"的"<<hbhb[c]<<"次方"<<"*";
+        }
+    }
+}
