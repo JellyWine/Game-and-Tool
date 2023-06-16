@@ -1,0 +1,54 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+ string str1="NO";
+ cout<<"是否使用遞迴數列? YES/NO"<<endl;
+ cin>>str1;
+ while(str1=="YES")
+ {
+   int k,c,t,n;
+   int sum=0;
+   cout<<"幾階遞迴?"<<endl;
+   cin>>n;
+   int a[n+1]={0};
+   int b[n+1]={0};
+   cout<<"請由低到高輸入係數(無就填零)"<<endl;
+   for(t=1;t<=n;t++)
+   {
+    cin>>b[t];
+   }
+   cout<<"請由低到高輸入前幾項(無就填零)"<<endl;
+   for(t=1;t<=n;t++)
+   {
+    cin>>a[t];
+    sum=sum+a[t];
+   }
+   cout<<"要算到第幾項"<<endl;
+   cin>>k;
+   for(t=1;t<=k-n;t++)
+   {
+    for(c=1;c<=n;c++)
+    {
+     a[c]=a[c]*b[c];
+    }
+    for(c=1;c<=n;c++)
+    {
+     a[c]=a[c-1]+a[c];
+    }
+    sum=sum+a[n];
+    for(c=1;c<=n-1;c++)
+    {
+     a[c]=(a[c+1]-a[c])/b[c+1];
+    }
+   }
+   cout<<"第n項="<<a[n]<<endl;
+   cout<<"總和="<<sum<<endl;
+   str1="NO";
+   cout<<"是否繼續使用 YES/NO"<<endl;
+   cin>>str1;
+ }
+  return 0;  
+}
